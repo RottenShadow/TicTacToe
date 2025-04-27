@@ -102,6 +102,7 @@ class HistoryFoundSection extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey,
                                   ),
                                 ),
                                 Text(

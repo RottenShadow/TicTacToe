@@ -21,7 +21,7 @@ class CustomButton extends StatelessWidget {
     final colorMap = {
       false: AppColors.kGrey,
       'Default': AppColors.kForeground,
-      'draw': AppColors.kDraw,
+      'draw': AppColors.kDrawColor,
       'X': AppColors.kXColor,
       'O': AppColors.kOColor,
     };
