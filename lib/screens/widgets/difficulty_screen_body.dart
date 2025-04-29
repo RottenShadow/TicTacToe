@@ -3,7 +3,7 @@ import 'package:xo/game_logic/storage/model/game_base_model.dart';
 import 'package:xo/helper_widgets/gradient_container.dart';
 
 import '../../theme/app_sizes.dart';
-import '../game_base_screen.dart';
+import '../game_screen.dart';
 import 'main_menu_buttons.dart';
 
 class DifficultyScreenBody extends StatelessWidget {
@@ -37,7 +37,7 @@ class DifficultyScreenBody extends StatelessWidget {
                         isAgainstAI: true,
                         difficulty: 3,
                       );
-                      return GameBaseScreen(
+                      return GameScreen(
                         gameBaseModel: gameBaseModel,
                       );
                     },
@@ -57,7 +57,7 @@ class DifficultyScreenBody extends StatelessWidget {
                         isAgainstAI: true,
                         difficulty: 2,
                       );
-                      return GameBaseScreen(
+                      return GameScreen(
                         gameBaseModel: gameBaseModel,
                       );
                     },
@@ -77,7 +77,7 @@ class DifficultyScreenBody extends StatelessWidget {
                         isAgainstAI: true,
                         difficulty: 1,
                       );
-                      return GameBaseScreen(
+                      return GameScreen(
                         gameBaseModel: gameBaseModel,
                       );
                     },

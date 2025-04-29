@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xo/game_logic/storage/model/game_base_model.dart';
 import 'package:xo/screens/difficulty_screen.dart';
-import 'package:xo/screens/game_base_screen.dart';
+import 'package:xo/screens/game_screen.dart';
 import 'package:xo/theme/app_sizes.dart';
 
 import '../helper_widgets/gradient_container.dart';
@@ -48,7 +48,7 @@ class MainMenu extends StatelessWidget {
                       builder: (context) {
                         var gameBaseModel =
                             GameBaseModel.isAgainstAI(isAgainstAI: false);
-                        return GameBaseScreen(
+                        return GameScreen(
                           gameBaseModel: gameBaseModel,
                         );
                       },

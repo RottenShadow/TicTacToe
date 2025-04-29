@@ -1,13 +1,13 @@
 import 'dart:math';
 import '../game_logic/check_result.dart';
 
-class AppLogic {
-  AppLogic._();
-  static final AppLogic instance = AppLogic._();
-  factory AppLogic() => instance;
+class GameLogic {
+  GameLogic._();
+  static final GameLogic instance = GameLogic._();
+  factory GameLogic() => instance;
 
   CheckResult checkResult = CheckResult.instance;
-  final double _overallDifficulty = 0.75; //Between 0 and 1
+  final double _overallDifficulty = 0.80; //Between 0 and 1
 
   int minimax({
     required List<List<String>> board,
