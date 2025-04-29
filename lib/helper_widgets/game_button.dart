@@ -3,8 +3,8 @@ import 'package:xo/theme/app_sizes.dart';
 
 import '../theme/app_colors.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({
+class GameButton extends StatelessWidget {
+  const GameButton({
     super.key,
     required this.onPressed,
     required this.text,

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:xo/game_logic/storage/model/game_base_model.dart';
 import 'package:xo/screens/difficulty_screen.dart';
 import 'package:xo/screens/game_base_screen.dart';
 import 'package:xo/theme/app_sizes.dart';
-import 'package:xo/theme/app_colors.dart';
 
 import '../helper_widgets/gradient_container.dart';
+import 'widgets/main_menu_buttons.dart';
 
 class MainMenu extends StatelessWidget {
   const MainMenu({super.key});
@@ -26,7 +27,7 @@ class MainMenu extends StatelessWidget {
                 ),
               ),
               gapLarge(),
-              MainMenuButtons(
+              MenuButtons(
                 btnText: '1  Player',
                 onPressed: () {
                   Navigator.push(
@@ -38,17 +39,19 @@ class MainMenu extends StatelessWidget {
                 },
               ),
               gapMedium(),
-              MainMenuButtons(
+              MenuButtons(
                 btnText: '2  Players',
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GameBaseScreen(
-                        playerXName: 'Player X',
-                        playerOName: 'Player O',
-                        isAgainstAI: false,
-                      ),
+                      builder: (context) {
+                        var gameBaseModel =
+                            GameBaseModel.isAgainstAI(isAgainstAI: false);
+                        return GameBaseScreen(
+                          gameBaseModel: gameBaseModel,
+                        );
+                      },
                     ),
                   );
                 },
@@ -59,35 +62,4 @@ class MainMenu extends StatelessWidget {
       ),
     );
   }
-}
-
-class MainMenuButtons extends StatelessWidget {
-  const MainMenuButtons(
-      {super.key, required this.btnText, required this.onPressed});
-
-  final String btnText;
-  final void Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) => SizedBox(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.kForeground,
-            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          child: Text(
-            btnText,
-            style: const TextStyle(
-              color: AppColors.kWhitish,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      );
 }

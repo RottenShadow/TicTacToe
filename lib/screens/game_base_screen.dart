@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xo/game_logic/app_logic.dart';
+import 'package:xo/game_logic/storage/model/game_base_model.dart';
 import 'package:xo/theme/app_colors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -16,25 +17,19 @@ List<String> difficultyTitle = [
 class GameBaseScreen extends HookConsumerWidget {
   const GameBaseScreen({
     super.key,
-    required this.isAgainstAI,
-    this.difficulty = 2,
-    required this.playerXName,
-    required this.playerOName,
+    required this.gameBaseModel,
   });
 
-  final String playerXName;
-  final String playerOName;
-  final int difficulty;
-  final bool isAgainstAI;
+  final GameBaseModel gameBaseModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AppLogic gameLogic = AppLogic();
+    final AppLogic gameLogic = AppLogic.instance;
 
     return Scaffold(
       appBar: AppBar(
-        title: isAgainstAI
-            ? Text(difficultyTitle[difficulty])
+        title: gameBaseModel.isAgainstAI
+            ? Text(difficultyTitle[gameBaseModel.difficulty])
             : const Text('2 Players'),
         centerTitle: true,
         leading: IconButton(
@@ -59,12 +54,7 @@ class GameBaseScreen extends HookConsumerWidget {
           ),
         ],
       ),
-      body: GameScreen(
-        playerXName: playerXName,
-        playerOName: playerOName,
-        isAgainstAI: isAgainstAI,
-        difficulty: difficulty,
-      ),
+      body: GameScreen(gameBaseModel: gameBaseModel),
     );
   }
 }

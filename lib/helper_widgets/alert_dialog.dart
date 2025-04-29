@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../theme/app_colors.dart';
-import 'button_widget.dart';
+import 'game_button.dart';
 
 void showGameAlertDialog(
     String message, BuildContext context, String winner, Function resetGame) {
@@ -27,7 +27,7 @@ void showGameAlertDialog(
           ),
         ),
         actions: [
-          CustomButton(
+          GameButton(
             onPressed: () {
               Navigator.of(context).pop();
               resetGame();

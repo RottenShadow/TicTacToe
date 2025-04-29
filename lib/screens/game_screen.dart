@@ -1,31 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:xo/game_logic/storage/model/game_base_model.dart';
 
-import '../game_logic/app_logic.dart';
-import '../game_logic/storage/model/history_hive_model.dart';
 import '../providers/game_providers.dart';
-import '../game_logic/storage/history_box.dart';
 import '../theme/app_colors.dart';
-import '../helper_widgets/alert_dialog.dart';
 import '../helper_widgets/scoreboard.dart';
 import '../helper_widgets/gradient_container.dart';
 
-int playerXScore = 0;
-int playerOScore = 0;
-bool isAIPlaying = false;
-
 class GameScreen extends ConsumerStatefulWidget {
-  final String playerXName;
-  final String playerOName;
-  final int difficulty;
-  final bool isAgainstAI;
+  final GameBaseModel gameBaseModel;
 
   const GameScreen({
     super.key,
-    required this.playerXName,
-    required this.playerOName,
-    required this.difficulty,
-    required this.isAgainstAI,
+    required this.gameBaseModel,
   });
 
   @override
@@ -35,129 +22,19 @@ class GameScreen extends ConsumerStatefulWidget {
 class _GameScreenState extends ConsumerState<GameScreen> {
   @override
   void dispose() {
-    playerXScore = 0;
-    playerOScore = 0;
-    isAIPlaying = false;
     debugPrint('GameScreen Closed');
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final gameLogic = AppLogic();
-    final board = ref.watch(boardProvider);
-    final currentPlayer = ref.watch(currentPlayerProvider);
-    final winner = ref.watch(winnerProvider);
-
-    void makeAIMove(boardNotifier, currentPlayerNotifier, winnerNotifier,
-        BuildContext context) {
-      int bestScore = -1000;
-      int bestMoveRow = -1;
-      int bestMoveCol = -1;
-
-      for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-          if (board[i][j].isEmpty) {
-            board[i][j] = 'O';
-            // 1 - Hard, 2 - Medium, 3 - Easy
-            int score = gameLogic.minimax(
-              board: board,
-              isMaximizing: false,
-              difficulty: widget.difficulty,
-            );
-            board[i][j] = '';
-
-            if (score > bestScore) {
-              bestScore = score;
-              bestMoveRow = i;
-              bestMoveCol = j;
-            }
-          }
-        }
-      }
-
-      if (bestMoveRow != -1 && bestMoveCol != -1) {
-        boardNotifier.updateBoard(bestMoveRow, bestMoveCol, 'O');
-        if (gameLogic.checkResult.checkWin(board, 'O')) {
-          winnerNotifier.updateWinner('O');
-          playerOScore++;
-          HistoryBox.setHistory(HistoryModelHive(
-            playerXName: widget.playerXName,
-            playerOName: widget.playerOName,
-            winner: widget.playerOName,
-          ));
-          showGameAlertDialog(
-            "AI Wins!",
-            context,
-            'O',
-            () => gameLogic.checkResult.resetGame('O', ref),
-          );
-        } else if (gameLogic.checkResult.checkDraw(board)) {
-          winnerNotifier.updateWinner('draw');
-          showGameAlertDialog("Draw!", context, 'draw',
-              () => gameLogic.checkResult.resetGame('draw', ref));
-        } else {
-          currentPlayerNotifier.togglePlayer();
-        }
-      }
-    }
-
-    void onCellTap(int row, int col) {
-      if (isAIPlaying) return;
-      final boardNotifier = ref.read(boardProvider.notifier);
-      final currentPlayerNotifier = ref.read(currentPlayerProvider.notifier);
-      final winnerNotifier = ref.read(winnerProvider.notifier);
-
-      if (board[row][col].isEmpty && winner.isEmpty) {
-        final currentPlayerValue = currentPlayer;
-        boardNotifier.updateBoard(row, col, currentPlayerValue);
-
-        if (gameLogic.checkResult.checkWin(board, currentPlayerValue)) {
-          winnerNotifier.updateWinner(currentPlayerValue);
-          if (currentPlayerValue == 'X') {
-            playerXScore++;
-          } else {
-            playerOScore++;
-          }
-          showGameAlertDialog(
-            "Player $currentPlayerValue wins!",
-            context,
-            currentPlayerValue,
-            () => gameLogic.checkResult.resetGame(currentPlayerValue, ref),
-          );
-          HistoryBox.setHistory(HistoryModelHive(
-            playerXName: widget.playerXName,
-            playerOName: widget.playerOName,
-            winner: currentPlayerValue,
-          ));
-        } else if (gameLogic.checkResult.checkDraw(board)) {
-          winnerNotifier.updateWinner('draw');
-          showGameAlertDialog(
-            "Draw!",
-            context,
-            "draw",
-            () => gameLogic.checkResult.resetGame(currentPlayerValue, ref),
-          );
-          HistoryBox.setHistory(HistoryModelHive(
-            playerXName: widget.playerXName,
-            playerOName: widget.playerOName,
-            winner: 'draw',
-          ));
-        } else {
-          currentPlayerNotifier.togglePlayer();
-          if (widget.isAgainstAI && currentPlayerValue == 'X') {
-            isAIPlaying = true;
-            Future.delayed(const Duration(milliseconds: 500), () {
-              if (context.mounted) {
-                makeAIMove(boardNotifier, currentPlayerNotifier, winnerNotifier,
-                    context);
-              }
-              isAIPlaying = false;
-            });
-          }
-        }
-      }
-    }
+    final gameProviders = GameProviders.instance;
+    final board = ref.watch(gameProviders.boardProvider);
+    final currentPlayer = ref.watch(gameProviders.currentPlayerProvider);
+    final _winner =
+        ref.watch(gameProviders.winnerProvider); // Needed only for ui rebuild
+    final gameStateNotifier = ref
+        .watch(gameProviders.gameStateProvider(widget.gameBaseModel).notifier);
 
     return Scaffold(
       body: GradientContainer(
@@ -171,10 +48,10 @@ class _GameScreenState extends ConsumerState<GameScreen> {
                   Expanded(
                     flex: 2,
                     child: ScoreBoard(
-                      playerXName: widget.playerXName,
-                      playerOName: widget.playerOName,
-                      playerXScore: playerXScore,
-                      playerOScore: playerOScore,
+                      playerXName: widget.gameBaseModel.playerXName,
+                      playerOName: widget.gameBaseModel.playerOName,
+                      playerXScore: gameStateNotifier.playerXScore,
+                      playerOScore: gameStateNotifier.playerOScore,
                       isTurn: currentPlayer == 'X',
                     ),
                   ),
@@ -198,8 +75,14 @@ class _GameScreenState extends ConsumerState<GameScreen> {
 
                           return GestureDetector(
                             onTap: () {
-                              if (!isAIPlaying) {
-                                onCellTap(row, col);
+                              if (!gameStateNotifier.isAIPlaying) {
+                                gameStateNotifier.onCellTap(
+                                  row,
+                                  col,
+                                  ref,
+                                  context,
+                                  widget.gameBaseModel,
+                                );
                               }
                             },
                             child: Container(

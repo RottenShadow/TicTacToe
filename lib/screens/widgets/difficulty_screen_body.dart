@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:xo/game_logic/storage/model/game_base_model.dart';
 import 'package:xo/helper_widgets/gradient_container.dart';
 
 import '../../theme/app_sizes.dart';
 import '../game_base_screen.dart';
-import '../main_menu.dart';
+import 'main_menu_buttons.dart';
 
 class DifficultyScreenBody extends StatelessWidget {
   const DifficultyScreenBody({
@@ -25,52 +26,61 @@ class DifficultyScreenBody extends StatelessWidget {
               ),
             ),
             gapLarge(),
-            MainMenuButtons(
+            MenuButtons(
               btnText: 'Easy',
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const GameBaseScreen(
-                      playerOName: "AI",
-                      playerXName: "You",
-                      isAgainstAI: true,
-                      difficulty: 3,
-                    ),
+                    builder: (context) {
+                      var gameBaseModel = GameBaseModel.isAgainstAI(
+                        isAgainstAI: true,
+                        difficulty: 3,
+                      );
+                      return GameBaseScreen(
+                        gameBaseModel: gameBaseModel,
+                      );
+                    },
                   ),
                 );
               },
             ),
             gapMedium(),
-            MainMenuButtons(
+            MenuButtons(
               btnText: 'Medium',
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const GameBaseScreen(
-                      playerOName: "AI",
-                      playerXName: "You",
-                      isAgainstAI: true,
-                      difficulty: 2,
-                    ),
+                    builder: (context) {
+                      var gameBaseModel = GameBaseModel.isAgainstAI(
+                        isAgainstAI: true,
+                        difficulty: 2,
+                      );
+                      return GameBaseScreen(
+                        gameBaseModel: gameBaseModel,
+                      );
+                    },
                   ),
                 );
               },
             ),
             gapMedium(),
-            MainMenuButtons(
+            MenuButtons(
               btnText: 'Hard',
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const GameBaseScreen(
-                      playerOName: "AI",
-                      playerXName: "You",
-                      isAgainstAI: true,
-                      difficulty: 1,
-                    ),
+                    builder: (context) {
+                      var gameBaseModel = GameBaseModel.isAgainstAI(
+                        isAgainstAI: true,
+                        difficulty: 1,
+                      );
+                      return GameBaseScreen(
+                        gameBaseModel: gameBaseModel,
+                      );
+                    },
                   ),
                 );
               },

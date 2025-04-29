@@ -32,12 +32,16 @@ class CheckResult {
       board.every((row) => row.every((cell) => cell.isNotEmpty));
 
   void resetGame(String currentPlayerValue, WidgetRef ref) {
-    final boardNotifier = ref.read(boardProvider.notifier);
-    final winnerNotifier = ref.read(winnerProvider.notifier);
+    var gameProviders = GameProviders.instance;
+    final boardNotifier = ref.read(gameProviders.boardProvider.notifier);
+    final winnerNotifier = ref.read(gameProviders.winnerProvider.notifier);
 
     boardNotifier.resetBoard();
     // 'X always goes first';
-    ref.read(currentPlayerProvider.notifier).setPlayer(value: 'X');
+
+    ref
+        .read(gameProviders.currentPlayerProvider.notifier)
+        .setPlayer(value: 'X');
 
     winnerNotifier.updateWinner('');
   }

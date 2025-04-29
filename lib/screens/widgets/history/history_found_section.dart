@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:xo/theme/app_sizes.dart';
 
-import '../../../helper_widgets/button_widget.dart';
+import '../../../helper_widgets/game_button.dart';
 import '../../../game_logic/storage/model/history_hive_model.dart';
 import '../../../game_logic/storage/history_box.dart';
 import '../../../theme/app_colors.dart';
@@ -25,7 +25,7 @@ class HistoryFoundSection extends StatelessWidget {
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-            child: CustomButton(
+            child: GameButton(
               text: 'Clear History!',
               color: 'draw',
               onPressed: () {
