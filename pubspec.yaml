@@ -93,6 +93,9 @@ flutter:
     - family: Juvanze
       fonts:
         - asset: assets/Juvanze.otf
+    - family: Blomberg
+      fonts:
+        - asset: assets/Blomberg.otf
     - family: PermanentMarker
       fonts:
         - asset: assets/PermanentMarker-Regular.ttf

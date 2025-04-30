@@ -20,7 +20,7 @@ class GradientContainer extends StatelessWidget {
             AppColors.kGradient1,
             AppColors.kGradient2,
           ],
-          stops: [0.5, 0.7],
+          stops: [0.5, 0.8],
         ),
       ),
       child: child,

@@ -31,8 +31,8 @@ class _GameScreenState extends ConsumerState<GameScreenBody> {
     final gameProviders = GameProviders.instance;
     final board = ref.watch(gameProviders.boardProvider);
     final currentPlayer = ref.watch(gameProviders.currentPlayerProvider);
-    final _winner =
-        ref.watch(gameProviders.winnerProvider); // Needed only for ui rebuild
+    ref.watch(
+        gameProviders.winnerProvider); // Needed only for UI rebuild after win
     final gameState = ref
         .watch(gameProviders.gameStateProvider(widget.gameBaseModel).notifier);
 
@@ -96,8 +96,8 @@ class _GameScreenState extends ConsumerState<GameScreenBody> {
                                 child: Text(
                                   board[row][col],
                                   style: TextStyle(
-                                    fontSize: 50,
-                                    fontFamily: 'PermanentMarker',
+                                    fontSize: 58,
+                                    fontFamily: 'Blomberg',
                                     fontWeight: FontWeight.bold,
                                     color: board[row][col] == 'X'
                                         ? AppColors.kXColor
