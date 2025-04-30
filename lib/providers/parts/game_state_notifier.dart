@@ -123,13 +123,18 @@ class GameStateNotifier extends StateNotifier<GameBaseModel> {
         ref.read(gameProviders.currentPlayerProvider.notifier);
     final winnerNotifier = ref.read(gameProviders.winnerProvider.notifier);
 
+    // The best score is the highest score that the AI can achieve by making a move.
+    // The best move row and column are the coordinates of the best move.
     int bestScore = -1000;
     int bestMoveRow = -1;
     int bestMoveCol = -1;
 
+    // Iterate over all the cells in the board.
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
+        // If the cell is empty, then it is a possible move for the AI.
         if (board[i][j].isEmpty) {
+          // Make the move and get the score of the move.
           board[i][j] = 'O';
           // 1 - Hard, 2 - Medium, 3 - Easy
           int score = gameLogic.minimax(
@@ -137,8 +142,10 @@ class GameStateNotifier extends StateNotifier<GameBaseModel> {
             isMaximizing: false,
             difficulty: gameBaseModel.difficulty,
           );
+          // Undo the move.
           board[i][j] = '';
 
+          // If the score is better than the best score, then update the best score and the best move.
           if (score > bestScore) {
             bestScore = score;
             bestMoveRow = i;

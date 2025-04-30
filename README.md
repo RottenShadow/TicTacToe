@@ -2,7 +2,7 @@
 
 The classic Tic Tac Toe game, developed using Flutter, offers a 2-Players mode and an engaging 1-Player mode where player can compete against an AI. **Featuring three difficulty levels: Easy, Medium, and Hard.**
 
-<br/>**--> YouTube Video: TBA**
+<br/>**--> [YouTube Video](https://youtu.be/yCWiq3w0lTw)**
 # Features
 
 * **2-Players Mode** : Compete against your friends and choose "X" or "O" to determine the winner!

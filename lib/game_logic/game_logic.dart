@@ -1,4 +1,6 @@
+// import 'package:flutter/foundation.dart';
 import 'dart:math';
+
 import '../game_logic/check_result.dart';
 
 class GameLogic {
@@ -40,7 +42,10 @@ class GameLogic {
             double.parse((Random().nextDouble()).toStringAsFixed(1));
 
         if (randomNumber >= _overallDifficulty - (difficulty / 10)) {
-          return 0; // Make a random move for easier difficulty
+          // When The AI is going to win act like it's a draw for easier difficulty
+          if (bestScore == -1) {
+            return 0;
+          }
         }
       }
       return bestScore;
