@@ -24,6 +24,9 @@ class GameProviders {
     (ref) => WinnerNotifier(),
   );
 
+  // Using StateNotifierProvider.family allows us to create a provider that can
+  // be parameterized with a GameBaseModel, enabling us to have multiple instances
+  // of GameStateNotifier, each tailored to a specific game configuration.
   final gameStateProvider = StateNotifierProvider.family<GameStateNotifier,
       GameBaseModel, GameBaseModel>((ref, gameBaseModel) {
     return GameStateNotifier(gameBaseModel: gameBaseModel);

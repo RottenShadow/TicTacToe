@@ -42,7 +42,7 @@ class GameLogic {
             double.parse((Random().nextDouble()).toStringAsFixed(1));
 
         if (randomNumber >= _overallDifficulty - (difficulty / 10)) {
-          // When The AI is going to win act like it's a draw for easier difficulty
+          // When The User is going to win act like it's a draw for easier difficulty
           if (bestScore == -1) {
             return 0;
           }
