@@ -20,3 +20,8 @@ The AI opponent leverages the Minimax algorithm, a decision-making algorithm use
 
 * **3. Hard** : The AI fully utilizes the Minimax algorithm, executing optimal moves without any randomization. This level represents an unbeatable opponent, capable of anticipating player moves and blocking winning combinations effectively.
 <br/><br/>**Designed for testing purposes**, as the AI will never make any mistake and will actively seek to win.
+<br/>
+
+
+
+## Based On on the brilliant work of [SouhailKrs](https://github.com/SouhailKrs/Flutter-Tic-Tac-Toe)
