@@ -22,5 +22,17 @@ The AI opponent leverages the Minimax algorithm, a decision-making algorithm use
 <br/>
 
 
+## Preview
+
+| Main Menu | AI Difficulty | Game Board |
+|-----------|---------------|------------|
+| <img width="250" alt="main_menu" src="https://github.com/user-attachments/assets/3172e6aa-35bb-4f63-9d59-c7afc04907e4" /> | <img width="250" alt="ai_difficulty" src="https://github.com/user-attachments/assets/2110a228-f82b-4de9-8d32-9aa7c0b0896c" /> | <img width="250" alt="board" src="https://github.com/user-attachments/assets/1ddfed4e-8c4c-4849-98a2-9cb6eb3361d4" /> |
+
+| Game Dialog | Game History |
+|-------------|--------------|
+| <img width="250" alt="game_dialog" src="https://github.com/user-attachments/assets/58ac1ef7-17bf-49bd-84f2-f9d9a72466fc" /> | <img width="250" alt="game_history" src="https://github.com/user-attachments/assets/2c097190-e1f3-45f7-ba8f-d49915c4224a" /> |
+
+
+
 
 ## Based On on the brilliant work of [SouhailKrs](https://github.com/SouhailKrs/Flutter-Tic-Tac-Toe)
